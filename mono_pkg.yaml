@@ -1,0 +1,6 @@
+stages:
+  - analyze_format:
+      - group:
+          - format
+          - analyze: --fatal-infos .
+        sdk: dev

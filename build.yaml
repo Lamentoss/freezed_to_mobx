@@ -1,0 +1,21 @@
+builders:
+  freezed_to_mobx_builder:
+    target: ":annotations"
+    # library URI containing the builder - maps to `lib/member_count_library_generator.dart`
+    import: "package:freezed_to_mobx/builder.dart"
+    # Name of the function in the above library to call.
+    builder_factories: ["nativeCallBuilder"]
+    # The mapping from the source extension to the generated file extension
+    build_extensions: { ".dart": [".mobx.dart"] }
+    # Will automatically run on any package that depends on it
+    auto_apply: dependents
+    # Generate the output directly into the package, not to a hidden cache dir
+    build_to: source
+  # channel_help_builder:
+  #   target: ":annotations"
+  #   import: "package:freezed_to_mobx/builder.dart" #build file
+  #   builder_factories: ["nativeCallBuilder"]
+  #   build_extensions: { ".dart": [".nc.g.dart"] }
+  #   auto_apply: dependents # Put this Builder Apply to package , Rely directly on publicly built packages , It can also be root_package
+  #   build_to: source # The code output to the target class of the annotation is in the same directory , Or the output goes to the hidden build cache , Will not release (cache)
+  #   applies_builders: ["source_gen|combining_builder"] # Specifies whether the builder can be delayed
