@@ -16,8 +16,10 @@ import "package:collection/collection.dart";
 
 class MultipleConstructorGenerator extends IMobxClassGenerator {
   MultipleConstructorGenerator(ClassElement constructor) : super(constructor);
-  late final constructors =
-      constructor.constructors.map((e) => ConstructorModel(e)).toList();
+  late final constructors = constructor.constructors
+      .whereNot((value) => (value.name == 'fromJson') || (value.name == '_'))
+      .map((e) => ConstructorModel(e))
+      .toList();
   late final _globalParameters = _extractGlobalParameters();
   late final _baseClass = constructors.baseClass;
   @override
@@ -49,7 +51,7 @@ class MultipleConstructorGenerator extends IMobxClassGenerator {
       final globalChangable =
           !element.value.any((element) => !element.mobxParams.changeable);
       final param = MobxParameter(MxPram(globalChangable),
-          element.value.first.type, element.value.first.name);
+          element.value.first.type.toString(), element.value.first.name);
 
       real.addAll({element.key: param});
     }
@@ -71,6 +73,7 @@ class MultipleConstructorGenerator extends IMobxClassGenerator {
             }
             
 '''));
+    // print('okey first define');
     //${constructors.whereNot((element) => element.element == _baseClass.element).map((e) => e.mapParam)}
     for (var element in _globalParameters) {
       baseObjClass.add(element.generate());
@@ -90,6 +93,8 @@ class MultipleConstructorGenerator extends IMobxClassGenerator {
     final otherClasses = constructors
         .where((element) => element.element != _baseClass.element)
         .toList();
+    otherClasses.removeWhere((element) => element.element.name == 'fromJson');
+    // otherClasses.map((e) => print(e.element.displayName));
     for (var cClass in otherClasses) {
       objClasses.add(Code('''
       class ${cClass.contructorName} extends I${_baseClass.contructorName}<${cClass.dataClassName}>{
@@ -114,6 +119,7 @@ class MultipleConstructorGenerator extends IMobxClassGenerator {
 }
 
 extension _ConstructorModel on List<ConstructorModel> {
-  ConstructorModel get baseClass =>
-      where((element) => element.element.name == '').single;
+  ConstructorModel get baseClass {
+    return where((element) => element.element.name == '').single;
+  }
 }

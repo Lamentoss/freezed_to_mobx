@@ -9,8 +9,7 @@ class ExtensionBlockGenerator {
       //     ' extension _${constructorModel.dataClassName} on ${constructorModel.dataClassName}{'),
       Code(
           '''//-----------      Begin Transform Function    -----------\n\n'''),
-      Code('// ignore: unused_element'),
-      if (isBase) Code('@override'),
+      if (!isBase) Code('@override'),
       Code(
           ' T transform<T>(_TransformerDataCallback<${constructorModel.dataClassName}, T> fn,{bool liveData = true}) {'),
       Code('return  fn(liveData ? getCurrentData() : _data);'),

@@ -39,7 +39,7 @@ class SingleConstructorGenerator extends IMobxClassGenerator {
     RestoreBlockGenerator.generate(true, cClass.mobxParams, [], objClasses);
     GetCurrentDataBlockGenerator.generate(false, cClass, objClasses);
     SaveBlockGenerator.generate(true, false, cClass, objClasses);
-    ExtensionBlockGenerator.generate(false, cClass, objClasses);
+    ExtensionBlockGenerator.generate(true, cClass, objClasses);
     objClasses.add(Code('}'));
 
     return Block.of(objClasses);
