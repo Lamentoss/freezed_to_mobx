@@ -17,14 +17,19 @@ class FreezedToMobxGenerator extends GeneratorForAnnotation<MobxWrapper> {
   @override
   generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {
-    // debugger();
     if (element is! ClassElement) {
       throw InvalidGenerationSourceError(
           'MobxWrapper Can only be used on classes ');
     }
     final hasMultipleImpl = _checkHasOnceConstractor(element);
     late final IMobxClassGenerator generator;
-    print('hasMultipleImpl $hasMultipleImpl');
+    // print('hasMultipleImpl $hasMultipleImpl');
+    // for (var item in element.constructors) {
+    //   print(item.name);
+    // }
+    // // element.constructors.map((e) => p);
+    // return '';
+
     if (hasMultipleImpl) {
       generator = MultipleConstructorGenerator(element);
     } else {

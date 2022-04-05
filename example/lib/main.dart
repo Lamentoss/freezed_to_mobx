@@ -51,8 +51,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final data = AddressModelForBillingLimitedCampany(firstName: 'first');
-  late final dataObj = IAddressModelBaseObj.fromData(data);
+  final data =
+      AddressModelForBillingLimitedCampany(firstName: 'first', obsTest: []);
+  late final AddressModelForBillingLimitedCampanyObj dataObj =
+      IAddressModelBaseObj.fromData(data)
+          as AddressModelForBillingLimitedCampanyObj;
 
   _reset() {
     dataObj.restore();
@@ -79,11 +82,25 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-              onChanged: (value) => dataObj.firstName = value,
+              onChanged: (value) {
+                dataObj.firstName = value;
+                dataObj.obsTest?.add(value);
+              },
             ),
             Observer(builder: (context) {
               return Text(
                 '${dataObj.firstName}',
+              );
+            }),
+            Observer(builder: (context) {
+              final listt = dataObj.obsTest.isNotEmpty
+                  ? dataObj.obsTest.reduce(
+                      (previousValue, element) =>
+                          previousValue + '\n' + element,
+                    )
+                  : 'yok';
+              return Text(
+                listt,
               );
             }),
             TextButton(

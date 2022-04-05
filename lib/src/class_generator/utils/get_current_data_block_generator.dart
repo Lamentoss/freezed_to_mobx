@@ -11,7 +11,9 @@ class GetCurrentDataBlockGenerator {
       if (!isBase) Code('@override'),
       Code('${constructorModel.dataClassName} getCurrentData() {'),
       Code('return ${constructorModel.dataClassName}('),
-      ...constructorModel.mobxParams.map((e) => Code('${e.name} : ${e.name},')),
+      ...constructorModel.mobxParams.map((e) => e.type.mustBeMobxClass
+          ? Code('${e.name} : ${e.type.mobxClassTyper.getCurrent(e.name)}')
+          : Code('${e.name} : ${e.name},')),
       Code(');'),
       Code('}'),
       Code(

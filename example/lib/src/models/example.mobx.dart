@@ -27,9 +27,9 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private id       -----------
 
+  late final _setId = Action((String? payload) => _obsId.value = payload);
   late final _obsId = Observable(_data.id);
   late final _computedId = Computed(() => _obsId.value);
-  late final _setId = Action((String? payload) => _obsId.value = payload);
 
 //-----------       End Private id         -----------
 
@@ -45,9 +45,9 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private city       -----------
 
+  late final _setCity = Action((String? payload) => _obsCity.value = payload);
   late final _obsCity = Observable(_data.city);
   late final _computedCity = Computed(() => _obsCity.value);
-  late final _setCity = Action((String? payload) => _obsCity.value = payload);
 
 //-----------       End Private city         -----------
 
@@ -63,9 +63,9 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private town       -----------
 
+  late final _setTown = Action((String? payload) => _obsTown.value = payload);
   late final _obsTown = Observable(_data.town);
   late final _computedTown = Computed(() => _obsTown.value);
-  late final _setTown = Action((String? payload) => _obsTown.value = payload);
 
 //-----------       End Private town         -----------
 
@@ -81,10 +81,10 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private firstName       -----------
 
-  late final _obsFirstname = Observable(_data.firstName);
-  late final _computedFirstname = Computed(() => _obsFirstname.value);
   late final _setFirstname =
       Action((String? payload) => _obsFirstname.value = payload);
+  late final _obsFirstname = Observable(_data.firstName);
+  late final _computedFirstname = Computed(() => _obsFirstname.value);
 
 //-----------       End Private firstName         -----------
 
@@ -100,10 +100,10 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private lastName       -----------
 
-  late final _obsLastname = Observable(_data.lastName);
-  late final _computedLastname = Computed(() => _obsLastname.value);
   late final _setLastname =
       Action((String? payload) => _obsLastname.value = payload);
+  late final _obsLastname = Observable(_data.lastName);
+  late final _computedLastname = Computed(() => _obsLastname.value);
 
 //-----------       End Private lastName         -----------
 
@@ -119,9 +119,9 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private gsm       -----------
 
+  late final _setGsm = Action((String? payload) => _obsGsm.value = payload);
   late final _obsGsm = Observable(_data.gsm);
   late final _computedGsm = Computed(() => _obsGsm.value);
-  late final _setGsm = Action((String? payload) => _obsGsm.value = payload);
 
 //-----------       End Private gsm         -----------
 
@@ -137,9 +137,9 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private tcNo       -----------
 
+  late final _setTcno = Action((String? payload) => _obsTcno.value = payload);
   late final _obsTcno = Observable(_data.tcNo);
   late final _computedTcno = Computed(() => _obsTcno.value);
-  late final _setTcno = Action((String? payload) => _obsTcno.value = payload);
 
 //-----------       End Private tcNo         -----------
 
@@ -155,9 +155,9 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private title       -----------
 
+  late final _setTitle = Action((String? payload) => _obsTitle.value = payload);
   late final _obsTitle = Observable(_data.title);
   late final _computedTitle = Computed(() => _obsTitle.value);
-  late final _setTitle = Action((String? payload) => _obsTitle.value = payload);
 
 //-----------       End Private title         -----------
 
@@ -173,10 +173,10 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       Begin Private address       -----------
 
-  late final _obsAddress = Observable(_data.address);
-  late final _computedAddress = Computed(() => _obsAddress.value);
   late final _setAddress =
       Action((String? payload) => _obsAddress.value = payload);
+  late final _obsAddress = Observable(_data.address);
+  late final _computedAddress = Computed(() => _obsAddress.value);
 
 //-----------       End Private address         -----------
 
@@ -232,8 +232,6 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------      Begin Transform Function    -----------
 
-// ignore: unused_element
-  @override
   T transform<T>(_TransformerDataCallback<AddressModelBase, T> fn,
       {bool liveData = true}) {
     return fn(liveData ? getCurrentData() : _data);
@@ -285,7 +283,7 @@ class AddressModelForShippingObj
 
 //-----------      Begin Transform Function    -----------
 
-// ignore: unused_element
+  @override
   T transform<T>(_TransformerDataCallback<AddressModelForShipping, T> fn,
       {bool liveData = true}) {
     return fn(liveData ? getCurrentData() : _data);
@@ -302,9 +300,9 @@ class AddressModelForBillingPersonalObj
 
 //-----------       Begin Private iban       -----------
 
+  late final _setIban = Action((String? payload) => _obsIban.value = payload);
   late final _obsIban = Observable(_data.iban);
   late final _computedIban = Computed(() => _obsIban.value);
-  late final _setIban = Action((String? payload) => _obsIban.value = payload);
 
 //-----------       End Private iban         -----------
 
@@ -357,7 +355,7 @@ class AddressModelForBillingPersonalObj
 
 //-----------      Begin Transform Function    -----------
 
-// ignore: unused_element
+  @override
   T transform<T>(_TransformerDataCallback<AddressModelForBillingPersonal, T> fn,
       {bool liveData = true}) {
     return fn(liveData ? getCurrentData() : _data);
@@ -374,9 +372,9 @@ class AddressModelForBillingPersonalCampanyObj
 
 //-----------       Begin Private iban       -----------
 
+  late final _setIban = Action((String? payload) => _obsIban.value = payload);
   late final _obsIban = Observable(_data.iban);
   late final _computedIban = Computed(() => _obsIban.value);
-  late final _setIban = Action((String? payload) => _obsIban.value = payload);
 
 //-----------       End Private iban         -----------
 
@@ -392,10 +390,10 @@ class AddressModelForBillingPersonalCampanyObj
 
 //-----------       Begin Private taxAuthority       -----------
 
-  late final _obsTaxauthority = Observable(_data.taxAuthority);
-  late final _computedTaxauthority = Computed(() => _obsTaxauthority.value);
   late final _setTaxauthority =
       Action((String? payload) => _obsTaxauthority.value = payload);
+  late final _obsTaxauthority = Observable(_data.taxAuthority);
+  late final _computedTaxauthority = Computed(() => _obsTaxauthority.value);
 
 //-----------       End Private taxAuthority         -----------
 
@@ -450,7 +448,7 @@ class AddressModelForBillingPersonalCampanyObj
 
 //-----------      Begin Transform Function    -----------
 
-// ignore: unused_element
+  @override
   T transform<T>(
       _TransformerDataCallback<AddressModelForBillingPersonalCampany, T> fn,
       {bool liveData = true}) {
@@ -468,9 +466,9 @@ class AddressModelForBillingLimitedCampanyObj
 
 //-----------       Begin Private iban       -----------
 
+  late final _setIban = Action((String? payload) => _obsIban.value = payload);
   late final _obsIban = Observable(_data.iban);
   late final _computedIban = Computed(() => _obsIban.value);
-  late final _setIban = Action((String? payload) => _obsIban.value = payload);
 
 //-----------       End Private iban         -----------
 
@@ -486,10 +484,10 @@ class AddressModelForBillingLimitedCampanyObj
 
 //-----------       Begin Private taxAuthority       -----------
 
-  late final _obsTaxauthority = Observable(_data.taxAuthority);
-  late final _computedTaxauthority = Computed(() => _obsTaxauthority.value);
   late final _setTaxauthority =
       Action((String? payload) => _obsTaxauthority.value = payload);
+  late final _obsTaxauthority = Observable(_data.taxAuthority);
+  late final _computedTaxauthority = Computed(() => _obsTaxauthority.value);
 
 //-----------       End Private taxAuthority         -----------
 
@@ -505,9 +503,9 @@ class AddressModelForBillingLimitedCampanyObj
 
 //-----------       Begin Private taxNo       -----------
 
+  late final _setTaxno = Action((String? payload) => _obsTaxno.value = payload);
   late final _obsTaxno = Observable(_data.taxNo);
   late final _computedTaxno = Computed(() => _obsTaxno.value);
-  late final _setTaxno = Action((String? payload) => _obsTaxno.value = payload);
 
 //-----------       End Private taxNo         -----------
 
@@ -523,10 +521,10 @@ class AddressModelForBillingLimitedCampanyObj
 
 //-----------       Begin Private mersisNo       -----------
 
-  late final _obsMersisno = Observable(_data.mersisNo);
-  late final _computedMersisno = Computed(() => _obsMersisno.value);
   late final _setMersisno =
       Action((String? payload) => _obsMersisno.value = payload);
+  late final _obsMersisno = Observable(_data.mersisNo);
+  late final _computedMersisno = Computed(() => _obsMersisno.value);
 
 //-----------       End Private mersisNo         -----------
 
@@ -540,11 +538,30 @@ class AddressModelForBillingLimitedCampanyObj
 
 //-----------       End Public mersisNo          -----------
 
+//-----------       Begin Private obsTest       -----------
+
+  late final _setObstest = Action((List<String> payload) =>
+      {_obsObstest.clear(), _obsObstest.addAll(payload)});
+  late final _obsObstest = ObservableList.of(_data.obsTest);
+  late final _computedObstest = Computed(() => _obsObstest);
+
+//-----------       End Private obsTest         -----------
+
+//-----------       Begin Public obsTest        -----------
+
+  set obsTest(List<String> payload) {
+    _setObstest.call([payload]);
+  }
+
+  List<String> get obsTest => _computedObstest.value;
+
+//-----------       End Public obsTest          -----------
+
 //-----------       Begin Private type       -----------
 
+  late final _setType = Action((String? payload) => _obsType.value = payload);
   late final _obsType = Observable(_data.type);
   late final _computedType = Computed(() => _obsType.value);
-  late final _setType = Action((String? payload) => _obsType.value = payload);
 
 //-----------       End Private type         -----------
 
@@ -566,6 +583,7 @@ class AddressModelForBillingLimitedCampanyObj
     taxAuthority = _data.taxAuthority;
     taxNo = _data.taxNo;
     mersisNo = _data.mersisNo;
+    obsTest = _data.obsTest;
     type = _data.type;
     super.restore();
   }
@@ -589,6 +607,7 @@ class AddressModelForBillingLimitedCampanyObj
       taxNo: taxNo,
       mersisNo: mersisNo,
       address: address,
+      obsTest: obsTest.toList(),
       type: type,
     );
   }
@@ -605,7 +624,7 @@ class AddressModelForBillingLimitedCampanyObj
 
 //-----------      Begin Transform Function    -----------
 
-// ignore: unused_element
+  @override
   T transform<T>(
       _TransformerDataCallback<AddressModelForBillingLimitedCampany, T> fn,
       {bool liveData = true}) {

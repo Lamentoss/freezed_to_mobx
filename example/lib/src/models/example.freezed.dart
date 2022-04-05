@@ -13,6 +13,25 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+AddressModelBase _$AddressModelBaseFromJson(Map<String, dynamic> json) {
+  switch (json['type'] as String?) {
+    case 'Default':
+      return _AddressModelBaseData.fromJson(json);
+    case '0':
+      return AddressModelForShipping.fromJson(json);
+    case '1':
+      return AddressModelForBillingPersonal.fromJson(json);
+    case '2':
+      return AddressModelForBillingPersonalCampany.fromJson(json);
+    case '3':
+      return AddressModelForBillingLimitedCampany.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'type', 'AddressModelBase',
+          'Invalid union type "${json['type']}"!');
+  }
+}
+
 /// @nodoc
 class _$AddressModelBaseTearOff {
   const _$AddressModelBaseTearOff();
@@ -129,6 +148,7 @@ class _$AddressModelBaseTearOff {
       @mxParam String? taxNo,
       @mxParam String? mersisNo,
       @mxParam String? address,
+      @mxParam List<String> obsTest = const [],
       @mxParam String? type}) {
     return AddressModelForBillingLimitedCampany(
       city: city,
@@ -144,8 +164,13 @@ class _$AddressModelBaseTearOff {
       taxNo: taxNo,
       mersisNo: mersisNo,
       address: address,
+      obsTest: obsTest,
       type: type,
     );
+  }
+
+  AddressModelBase fromJson(Map<String, Object> json) {
+    return AddressModelBase.fromJson(json);
   }
 }
 
@@ -236,6 +261,7 @@ mixin _$AddressModelBase {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)
         forBillingLimitedCampany,
   }) =>
@@ -303,6 +329,7 @@ mixin _$AddressModelBase {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
   }) =>
@@ -370,6 +397,7 @@ mixin _$AddressModelBase {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
     required TResult orElse(),
@@ -410,7 +438,7 @@ mixin _$AddressModelBase {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AddressModelBaseCopyWith<AddressModelBase> get copyWith =>
       throw _privateConstructorUsedError;
@@ -579,9 +607,8 @@ class __$AddressModelBaseDataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(includeIfNull: true, explicitToJson: true)
-class _$_AddressModelBaseData implements _AddressModelBaseData {
+@JsonSerializable()
+class _$_AddressModelBaseData extends _AddressModelBaseData {
   _$_AddressModelBaseData(
       {@mxParam this.id,
       @mxParam this.city,
@@ -591,7 +618,11 @@ class _$_AddressModelBaseData implements _AddressModelBaseData {
       @mxParam this.gsm,
       @mxParam this.tcNo,
       @mxParam this.title,
-      @mxParam this.address});
+      @mxParam this.address})
+      : super._();
+
+  factory _$_AddressModelBaseData.fromJson(Map<String, dynamic> json) =>
+      _$$_AddressModelBaseDataFromJson(json);
 
   @override
   @mxParam
@@ -735,6 +766,7 @@ class _$_AddressModelBaseData implements _AddressModelBaseData {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)
         forBillingLimitedCampany,
   }) {
@@ -806,6 +838,7 @@ class _$_AddressModelBaseData implements _AddressModelBaseData {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
   }) {
@@ -877,6 +910,7 @@ class _$_AddressModelBaseData implements _AddressModelBaseData {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
     required TResult orElse(),
@@ -934,9 +968,14 @@ class _$_AddressModelBaseData implements _AddressModelBaseData {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_AddressModelBaseDataToJson(this)..['type'] = 'Default';
+  }
 }
 
-abstract class _AddressModelBaseData implements AddressModelBase {
+abstract class _AddressModelBaseData extends AddressModelBase {
   factory _AddressModelBaseData(
       {@mxParam String? id,
       @mxParam String? city,
@@ -947,6 +986,10 @@ abstract class _AddressModelBaseData implements AddressModelBase {
       @mxParam String? tcNo,
       @mxParam String? title,
       @mxParam String? address}) = _$_AddressModelBaseData;
+  _AddressModelBaseData._() : super._();
+
+  factory _AddressModelBaseData.fromJson(Map<String, dynamic> json) =
+      _$_AddressModelBaseData.fromJson;
 
   @override
   @mxParam
@@ -1065,10 +1108,9 @@ class _$AddressModelForShippingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 @FreezedUnionValue('0')
-@JsonSerializable(includeIfNull: true, explicitToJson: true)
-class _$AddressModelForShipping implements AddressModelForShipping {
+class _$AddressModelForShipping extends AddressModelForShipping {
   _$AddressModelForShipping(
       {@mxParam this.city,
       @mxParam this.town,
@@ -1078,7 +1120,11 @@ class _$AddressModelForShipping implements AddressModelForShipping {
       @mxParam this.gsm,
       @mxParam this.tcNo,
       @mxParam this.id,
-      @mxParam this.address});
+      @mxParam this.address})
+      : super._();
+
+  factory _$AddressModelForShipping.fromJson(Map<String, dynamic> json) =>
+      _$$AddressModelForShippingFromJson(json);
 
   @override
   @mxParam
@@ -1222,6 +1268,7 @@ class _$AddressModelForShipping implements AddressModelForShipping {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)
         forBillingLimitedCampany,
   }) {
@@ -1293,6 +1340,7 @@ class _$AddressModelForShipping implements AddressModelForShipping {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
   }) {
@@ -1364,6 +1412,7 @@ class _$AddressModelForShipping implements AddressModelForShipping {
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
     required TResult orElse(),
@@ -1421,9 +1470,14 @@ class _$AddressModelForShipping implements AddressModelForShipping {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AddressModelForShippingToJson(this)..['type'] = '0';
+  }
 }
 
-abstract class AddressModelForShipping implements AddressModelBase {
+abstract class AddressModelForShipping extends AddressModelBase {
   factory AddressModelForShipping(
       {@mxParam String? city,
       @mxParam String? town,
@@ -1434,6 +1488,10 @@ abstract class AddressModelForShipping implements AddressModelBase {
       @mxParam String? tcNo,
       @mxParam String? id,
       @mxParam String? address}) = _$AddressModelForShipping;
+  AddressModelForShipping._() : super._();
+
+  factory AddressModelForShipping.fromJson(Map<String, dynamic> json) =
+      _$AddressModelForShipping.fromJson;
 
   @override
   @mxParam
@@ -1561,11 +1619,9 @@ class _$AddressModelForBillingPersonalCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 @FreezedUnionValue('1')
-@JsonSerializable(includeIfNull: true, explicitToJson: true)
-class _$AddressModelForBillingPersonal
-    implements AddressModelForBillingPersonal {
+class _$AddressModelForBillingPersonal extends AddressModelForBillingPersonal {
   _$AddressModelForBillingPersonal(
       {@mxParam this.city,
       @mxParam this.town,
@@ -1576,7 +1632,12 @@ class _$AddressModelForBillingPersonal
       @mxParam this.tcNo,
       @mxParam this.iban,
       @mxParam this.id,
-      @mxParam this.address});
+      @mxParam this.address})
+      : super._();
+
+  factory _$AddressModelForBillingPersonal.fromJson(
+          Map<String, dynamic> json) =>
+      _$$AddressModelForBillingPersonalFromJson(json);
 
   @override
   @mxParam
@@ -1726,6 +1787,7 @@ class _$AddressModelForBillingPersonal
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)
         forBillingLimitedCampany,
   }) {
@@ -1797,6 +1859,7 @@ class _$AddressModelForBillingPersonal
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
   }) {
@@ -1868,6 +1931,7 @@ class _$AddressModelForBillingPersonal
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
     required TResult orElse(),
@@ -1925,9 +1989,14 @@ class _$AddressModelForBillingPersonal
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AddressModelForBillingPersonalToJson(this)..['type'] = '1';
+  }
 }
 
-abstract class AddressModelForBillingPersonal implements AddressModelBase {
+abstract class AddressModelForBillingPersonal extends AddressModelBase {
   factory AddressModelForBillingPersonal(
       {@mxParam String? city,
       @mxParam String? town,
@@ -1939,6 +2008,10 @@ abstract class AddressModelForBillingPersonal implements AddressModelBase {
       @mxParam String? iban,
       @mxParam String? id,
       @mxParam String? address}) = _$AddressModelForBillingPersonal;
+  AddressModelForBillingPersonal._() : super._();
+
+  factory AddressModelForBillingPersonal.fromJson(Map<String, dynamic> json) =
+      _$AddressModelForBillingPersonal.fromJson;
 
   @override
   @mxParam
@@ -2074,11 +2147,10 @@ class _$AddressModelForBillingPersonalCampanyCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 @FreezedUnionValue('2')
-@JsonSerializable(includeIfNull: true, explicitToJson: true)
 class _$AddressModelForBillingPersonalCampany
-    implements AddressModelForBillingPersonalCampany {
+    extends AddressModelForBillingPersonalCampany {
   _$AddressModelForBillingPersonalCampany(
       {@mxParam this.city,
       @mxParam this.town,
@@ -2090,7 +2162,12 @@ class _$AddressModelForBillingPersonalCampany
       @mxParam this.id,
       @mxParam this.iban,
       @mxParam this.taxAuthority,
-      @mxParam this.address});
+      @mxParam this.address})
+      : super._();
+
+  factory _$AddressModelForBillingPersonalCampany.fromJson(
+          Map<String, dynamic> json) =>
+      _$$AddressModelForBillingPersonalCampanyFromJson(json);
 
   @override
   @mxParam
@@ -2248,6 +2325,7 @@ class _$AddressModelForBillingPersonalCampany
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)
         forBillingLimitedCampany,
   }) {
@@ -2319,6 +2397,7 @@ class _$AddressModelForBillingPersonalCampany
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
   }) {
@@ -2390,6 +2469,7 @@ class _$AddressModelForBillingPersonalCampany
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
     required TResult orElse(),
@@ -2447,10 +2527,14 @@ class _$AddressModelForBillingPersonalCampany
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AddressModelForBillingPersonalCampanyToJson(this)..['type'] = '2';
+  }
 }
 
-abstract class AddressModelForBillingPersonalCampany
-    implements AddressModelBase {
+abstract class AddressModelForBillingPersonalCampany extends AddressModelBase {
   factory AddressModelForBillingPersonalCampany(
       {@mxParam String? city,
       @mxParam String? town,
@@ -2463,6 +2547,11 @@ abstract class AddressModelForBillingPersonalCampany
       @mxParam String? iban,
       @mxParam String? taxAuthority,
       @mxParam String? address}) = _$AddressModelForBillingPersonalCampany;
+  AddressModelForBillingPersonalCampany._() : super._();
+
+  factory AddressModelForBillingPersonalCampany.fromJson(
+          Map<String, dynamic> json) =
+      _$AddressModelForBillingPersonalCampany.fromJson;
 
   @override
   @mxParam
@@ -2524,6 +2613,7 @@ abstract class $AddressModelForBillingLimitedCampanyCopyWith<$Res>
       @mxParam String? taxNo,
       @mxParam String? mersisNo,
       @mxParam String? address,
+      @mxParam List<String> obsTest,
       @mxParam String? type});
 }
 
@@ -2555,6 +2645,7 @@ class _$AddressModelForBillingLimitedCampanyCopyWithImpl<$Res>
     Object? taxNo = freezed,
     Object? mersisNo = freezed,
     Object? address = freezed,
+    Object? obsTest = freezed,
     Object? type = freezed,
   }) {
     return _then(AddressModelForBillingLimitedCampany(
@@ -2610,6 +2701,10 @@ class _$AddressModelForBillingLimitedCampanyCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
+      obsTest: obsTest == freezed
+          ? _value.obsTest
+          : obsTest // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -2619,11 +2714,10 @@ class _$AddressModelForBillingLimitedCampanyCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 @FreezedUnionValue('3')
-@JsonSerializable(includeIfNull: true, explicitToJson: true)
 class _$AddressModelForBillingLimitedCampany
-    implements AddressModelForBillingLimitedCampany {
+    extends AddressModelForBillingLimitedCampany {
   _$AddressModelForBillingLimitedCampany(
       {@mxParam this.city,
       @mxParam this.town,
@@ -2638,7 +2732,13 @@ class _$AddressModelForBillingLimitedCampany
       @mxParam this.taxNo,
       @mxParam this.mersisNo,
       @mxParam this.address,
-      @mxParam this.type});
+      @mxParam this.obsTest = const [],
+      @mxParam this.type})
+      : super._();
+
+  factory _$AddressModelForBillingLimitedCampany.fromJson(
+          Map<String, dynamic> json) =>
+      _$$AddressModelForBillingLimitedCampanyFromJson(json);
 
   @override
   @mxParam
@@ -2679,13 +2779,17 @@ class _$AddressModelForBillingLimitedCampany
   @override
   @mxParam
   final String? address;
+  @JsonKey(defaultValue: const [])
+  @override
+  @mxParam
+  final List<String> obsTest;
   @override
   @mxParam
   final String? type;
 
   @override
   String toString() {
-    return 'AddressModelBase.forBillingLimitedCampany(city: $city, town: $town, title: $title, firstName: $firstName, lastName: $lastName, gsm: $gsm, tcNo: $tcNo, id: $id, iban: $iban, taxAuthority: $taxAuthority, taxNo: $taxNo, mersisNo: $mersisNo, address: $address, type: $type)';
+    return 'AddressModelBase.forBillingLimitedCampany(city: $city, town: $town, title: $title, firstName: $firstName, lastName: $lastName, gsm: $gsm, tcNo: $tcNo, id: $id, iban: $iban, taxAuthority: $taxAuthority, taxNo: $taxNo, mersisNo: $mersisNo, address: $address, obsTest: $obsTest, type: $type)';
   }
 
   @override
@@ -2723,6 +2827,9 @@ class _$AddressModelForBillingLimitedCampany
             (identical(other.address, address) ||
                 const DeepCollectionEquality()
                     .equals(other.address, address)) &&
+            (identical(other.obsTest, obsTest) ||
+                const DeepCollectionEquality()
+                    .equals(other.obsTest, obsTest)) &&
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)));
   }
@@ -2743,6 +2850,7 @@ class _$AddressModelForBillingLimitedCampany
       const DeepCollectionEquality().hash(taxNo) ^
       const DeepCollectionEquality().hash(mersisNo) ^
       const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(obsTest) ^
       const DeepCollectionEquality().hash(type);
 
   @JsonKey(ignore: true)
@@ -2816,11 +2924,12 @@ class _$AddressModelForBillingLimitedCampany
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)
         forBillingLimitedCampany,
   }) {
     return forBillingLimitedCampany(city, town, title, firstName, lastName, gsm,
-        tcNo, id, iban, taxAuthority, taxNo, mersisNo, address, type);
+        tcNo, id, iban, taxAuthority, taxNo, mersisNo, address, obsTest, type);
   }
 
   @override
@@ -2887,6 +2996,7 @@ class _$AddressModelForBillingLimitedCampany
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
   }) {
@@ -2904,6 +3014,7 @@ class _$AddressModelForBillingLimitedCampany
         taxNo,
         mersisNo,
         address,
+        obsTest,
         type);
   }
 
@@ -2971,13 +3082,28 @@ class _$AddressModelForBillingLimitedCampany
             @mxParam String? taxNo,
             @mxParam String? mersisNo,
             @mxParam String? address,
+            @mxParam List<String> obsTest,
             @mxParam String? type)?
         forBillingLimitedCampany,
     required TResult orElse(),
   }) {
     if (forBillingLimitedCampany != null) {
-      return forBillingLimitedCampany(city, town, title, firstName, lastName,
-          gsm, tcNo, id, iban, taxAuthority, taxNo, mersisNo, address, type);
+      return forBillingLimitedCampany(
+          city,
+          town,
+          title,
+          firstName,
+          lastName,
+          gsm,
+          tcNo,
+          id,
+          iban,
+          taxAuthority,
+          taxNo,
+          mersisNo,
+          address,
+          obsTest,
+          type);
     }
     return orElse();
   }
@@ -3028,10 +3154,14 @@ class _$AddressModelForBillingLimitedCampany
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AddressModelForBillingLimitedCampanyToJson(this)..['type'] = '3';
+  }
 }
 
-abstract class AddressModelForBillingLimitedCampany
-    implements AddressModelBase {
+abstract class AddressModelForBillingLimitedCampany extends AddressModelBase {
   factory AddressModelForBillingLimitedCampany(
       {@mxParam String? city,
       @mxParam String? town,
@@ -3046,7 +3176,13 @@ abstract class AddressModelForBillingLimitedCampany
       @mxParam String? taxNo,
       @mxParam String? mersisNo,
       @mxParam String? address,
+      @mxParam List<String> obsTest,
       @mxParam String? type}) = _$AddressModelForBillingLimitedCampany;
+  AddressModelForBillingLimitedCampany._() : super._();
+
+  factory AddressModelForBillingLimitedCampany.fromJson(
+          Map<String, dynamic> json) =
+      _$AddressModelForBillingLimitedCampany.fromJson;
 
   @override
   @mxParam
@@ -3083,6 +3219,8 @@ abstract class AddressModelForBillingLimitedCampany
   @override
   @mxParam
   String? get address => throw _privateConstructorUsedError;
+  @mxParam
+  List<String> get obsTest => throw _privateConstructorUsedError;
   @mxParam
   String? get type => throw _privateConstructorUsedError;
   @override
