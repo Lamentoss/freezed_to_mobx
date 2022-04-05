@@ -36,13 +36,13 @@ dependencies:
   freezed_to_mobx:
     path: ../
   freezed_to_mobx_annotations:
-    path: ../../freezed_to_mobx_annotations
+    git: https://github.com/Lamentoss/freezed_to_mobx_annotations.git
   freezed: ^0.14.5
   freezed_annotation: ^0.14.3
   mobx: ^2.0.6+1
   flutter_mobx: ^2.0.2
-  json_serializable: ^5.0.0
-  json_annotation: ^4.1.0
+  json_serializable: any
+  json_annotation: any
 
 dev_dependencies:
   flutter_lints: ^1.0.0

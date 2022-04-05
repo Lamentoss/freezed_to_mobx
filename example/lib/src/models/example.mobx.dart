@@ -5,25 +5,16 @@
 // **************************************************************************
 
 import 'package:mobx/mobx.dart';
+
 import 'example.dart';
+import 'example2.dart';
 
 typedef _TransformerDataCallback<RealData, TransformedData> = TransformedData
     Function(RealData data);
 
-abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
-  Model _data;
-  IAddressModelBaseObj(this._data);
-  static IAddressModelBaseObj fromData(AddressModelBase data) {
-    return data.map(
-      (value) => throw 'fromData is abstarct',
-      forShipping: (value) => AddressModelForShippingObj(value),
-      forBillingPersonal: (value) => AddressModelForBillingPersonalObj(value),
-      forBillingPersonalCampany: (value) =>
-          AddressModelForBillingPersonalCampanyObj(value),
-      forBillingLimitedCampany: (value) =>
-          AddressModelForBillingLimitedCampanyObj(value),
-    );
-  }
+class AddressModelBaseObj {
+  late AddressModelBase _data;
+  AddressModelBaseObj(this._data);
 
 //-----------       Begin Private id       -----------
 
@@ -190,30 +181,24 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
 
 //-----------       End Public address          -----------
 
-//-----------       Begin Save Function       -----------
+//-----------       Begin Private example2       -----------
 
-  Model save() {
-    _data = getCurrentData() as Model;
-    return _data;
+  late final _setExample2 =
+      Action((Example2? payload) => _obsExample2.value = payload);
+  late final _obsExample2 = Observable(_data.example2);
+  late final _computedExample2 = Computed(() => _obsExample2.value);
+
+//-----------       End Private example2         -----------
+
+//-----------       Begin Public example2        -----------
+
+  set example2(Example2? payload) {
+    _setExample2.call([payload]);
   }
-//-----------       Begin Save Function       -----------
 
-//-----------      Begin GetCurrentData Function    -----------
+  Example2? get example2 => _computedExample2.value;
 
-  AddressModelBase getCurrentData() {
-    return AddressModelBase(
-      id: id,
-      city: city,
-      town: town,
-      firstName: firstName,
-      lastName: lastName,
-      gsm: gsm,
-      tcNo: tcNo,
-      title: title,
-      address: address,
-    );
-  }
-//-----------      End GetCurrentData Function       -----------
+//-----------       End Public example2          -----------
 
 //-----------       Begin Restore Function    -----------
 
@@ -227,406 +212,40 @@ abstract class IAddressModelBaseObj<Model extends AddressModelBase> {
     tcNo = _data.tcNo;
     title = _data.title;
     address = _data.address;
+    example2 = _data.example2;
   }
 //-----------       End Restore Function      -----------
+
+//-----------      Begin GetCurrentData Function    -----------
+
+  @override
+  AddressModelBase getCurrentData() {
+    return AddressModelBase(
+      id: id,
+      city: city,
+      town: town,
+      firstName: firstName,
+      lastName: lastName,
+      gsm: gsm,
+      tcNo: tcNo,
+      title: title,
+      address: address,
+      example2: example2,
+    );
+  }
+//-----------      End GetCurrentData Function       -----------
+
+//-----------       Begin Save Function       -----------
+
+  AddressModelBase save() {
+    _data = getCurrentData();
+    return _data;
+  }
+//-----------       Begin Save Function       -----------
 
 //-----------      Begin Transform Function    -----------
 
   T transform<T>(_TransformerDataCallback<AddressModelBase, T> fn,
-      {bool liveData = true}) {
-    return fn(liveData ? getCurrentData() : _data);
-  }
-//-----------      End Transform Function       -----------
-
-}
-
-class AddressModelForShippingObj
-    extends IAddressModelBaseObj<AddressModelForShipping> {
-  @override
-  AddressModelForShipping _data;
-  AddressModelForShippingObj(this._data) : super(_data);
-
-//-----------       Begin Restore Function    -----------
-
-  @override
-  void restore() {
-    super.restore();
-  }
-//-----------       End Restore Function      -----------
-
-//-----------      Begin GetCurrentData Function    -----------
-
-  @override
-  AddressModelForShipping getCurrentData() {
-    return AddressModelForShipping(
-      city: city,
-      town: town,
-      title: title,
-      firstName: firstName,
-      lastName: lastName,
-      gsm: gsm,
-      tcNo: tcNo,
-      id: id,
-      address: address,
-    );
-  }
-//-----------      End GetCurrentData Function       -----------
-
-//-----------       Begin Save Function       -----------
-
-  @override
-  AddressModelForShipping save() {
-    _data = getCurrentData();
-    return _data;
-  }
-//-----------       Begin Save Function       -----------
-
-//-----------      Begin Transform Function    -----------
-
-  @override
-  T transform<T>(_TransformerDataCallback<AddressModelForShipping, T> fn,
-      {bool liveData = true}) {
-    return fn(liveData ? getCurrentData() : _data);
-  }
-//-----------      End Transform Function       -----------
-
-}
-
-class AddressModelForBillingPersonalObj
-    extends IAddressModelBaseObj<AddressModelForBillingPersonal> {
-  @override
-  AddressModelForBillingPersonal _data;
-  AddressModelForBillingPersonalObj(this._data) : super(_data);
-
-//-----------       Begin Private iban       -----------
-
-  late final _setIban = Action((String? payload) => _obsIban.value = payload);
-  late final _obsIban = Observable(_data.iban);
-  late final _computedIban = Computed(() => _obsIban.value);
-
-//-----------       End Private iban         -----------
-
-//-----------       Begin Public iban        -----------
-
-  set iban(String? payload) {
-    _setIban.call([payload]);
-  }
-
-  String? get iban => _computedIban.value;
-
-//-----------       End Public iban          -----------
-
-//-----------       Begin Restore Function    -----------
-
-  @override
-  void restore() {
-    iban = _data.iban;
-    super.restore();
-  }
-//-----------       End Restore Function      -----------
-
-//-----------      Begin GetCurrentData Function    -----------
-
-  @override
-  AddressModelForBillingPersonal getCurrentData() {
-    return AddressModelForBillingPersonal(
-      city: city,
-      town: town,
-      title: title,
-      firstName: firstName,
-      lastName: lastName,
-      gsm: gsm,
-      tcNo: tcNo,
-      iban: iban,
-      id: id,
-      address: address,
-    );
-  }
-//-----------      End GetCurrentData Function       -----------
-
-//-----------       Begin Save Function       -----------
-
-  @override
-  AddressModelForBillingPersonal save() {
-    _data = getCurrentData();
-    return _data;
-  }
-//-----------       Begin Save Function       -----------
-
-//-----------      Begin Transform Function    -----------
-
-  @override
-  T transform<T>(_TransformerDataCallback<AddressModelForBillingPersonal, T> fn,
-      {bool liveData = true}) {
-    return fn(liveData ? getCurrentData() : _data);
-  }
-//-----------      End Transform Function       -----------
-
-}
-
-class AddressModelForBillingPersonalCampanyObj
-    extends IAddressModelBaseObj<AddressModelForBillingPersonalCampany> {
-  @override
-  AddressModelForBillingPersonalCampany _data;
-  AddressModelForBillingPersonalCampanyObj(this._data) : super(_data);
-
-//-----------       Begin Private iban       -----------
-
-  late final _setIban = Action((String? payload) => _obsIban.value = payload);
-  late final _obsIban = Observable(_data.iban);
-  late final _computedIban = Computed(() => _obsIban.value);
-
-//-----------       End Private iban         -----------
-
-//-----------       Begin Public iban        -----------
-
-  set iban(String? payload) {
-    _setIban.call([payload]);
-  }
-
-  String? get iban => _computedIban.value;
-
-//-----------       End Public iban          -----------
-
-//-----------       Begin Private taxAuthority       -----------
-
-  late final _setTaxauthority =
-      Action((String? payload) => _obsTaxauthority.value = payload);
-  late final _obsTaxauthority = Observable(_data.taxAuthority);
-  late final _computedTaxauthority = Computed(() => _obsTaxauthority.value);
-
-//-----------       End Private taxAuthority         -----------
-
-//-----------       Begin Public taxAuthority        -----------
-
-  set taxAuthority(String? payload) {
-    _setTaxauthority.call([payload]);
-  }
-
-  String? get taxAuthority => _computedTaxauthority.value;
-
-//-----------       End Public taxAuthority          -----------
-
-//-----------       Begin Restore Function    -----------
-
-  @override
-  void restore() {
-    iban = _data.iban;
-    taxAuthority = _data.taxAuthority;
-    super.restore();
-  }
-//-----------       End Restore Function      -----------
-
-//-----------      Begin GetCurrentData Function    -----------
-
-  @override
-  AddressModelForBillingPersonalCampany getCurrentData() {
-    return AddressModelForBillingPersonalCampany(
-      city: city,
-      town: town,
-      title: title,
-      firstName: firstName,
-      lastName: lastName,
-      gsm: gsm,
-      tcNo: tcNo,
-      id: id,
-      iban: iban,
-      taxAuthority: taxAuthority,
-      address: address,
-    );
-  }
-//-----------      End GetCurrentData Function       -----------
-
-//-----------       Begin Save Function       -----------
-
-  @override
-  AddressModelForBillingPersonalCampany save() {
-    _data = getCurrentData();
-    return _data;
-  }
-//-----------       Begin Save Function       -----------
-
-//-----------      Begin Transform Function    -----------
-
-  @override
-  T transform<T>(
-      _TransformerDataCallback<AddressModelForBillingPersonalCampany, T> fn,
-      {bool liveData = true}) {
-    return fn(liveData ? getCurrentData() : _data);
-  }
-//-----------      End Transform Function       -----------
-
-}
-
-class AddressModelForBillingLimitedCampanyObj
-    extends IAddressModelBaseObj<AddressModelForBillingLimitedCampany> {
-  @override
-  AddressModelForBillingLimitedCampany _data;
-  AddressModelForBillingLimitedCampanyObj(this._data) : super(_data);
-
-//-----------       Begin Private iban       -----------
-
-  late final _setIban = Action((String? payload) => _obsIban.value = payload);
-  late final _obsIban = Observable(_data.iban);
-  late final _computedIban = Computed(() => _obsIban.value);
-
-//-----------       End Private iban         -----------
-
-//-----------       Begin Public iban        -----------
-
-  set iban(String? payload) {
-    _setIban.call([payload]);
-  }
-
-  String? get iban => _computedIban.value;
-
-//-----------       End Public iban          -----------
-
-//-----------       Begin Private taxAuthority       -----------
-
-  late final _setTaxauthority =
-      Action((String? payload) => _obsTaxauthority.value = payload);
-  late final _obsTaxauthority = Observable(_data.taxAuthority);
-  late final _computedTaxauthority = Computed(() => _obsTaxauthority.value);
-
-//-----------       End Private taxAuthority         -----------
-
-//-----------       Begin Public taxAuthority        -----------
-
-  set taxAuthority(String? payload) {
-    _setTaxauthority.call([payload]);
-  }
-
-  String? get taxAuthority => _computedTaxauthority.value;
-
-//-----------       End Public taxAuthority          -----------
-
-//-----------       Begin Private taxNo       -----------
-
-  late final _setTaxno = Action((String? payload) => _obsTaxno.value = payload);
-  late final _obsTaxno = Observable(_data.taxNo);
-  late final _computedTaxno = Computed(() => _obsTaxno.value);
-
-//-----------       End Private taxNo         -----------
-
-//-----------       Begin Public taxNo        -----------
-
-  set taxNo(String? payload) {
-    _setTaxno.call([payload]);
-  }
-
-  String? get taxNo => _computedTaxno.value;
-
-//-----------       End Public taxNo          -----------
-
-//-----------       Begin Private mersisNo       -----------
-
-  late final _setMersisno =
-      Action((String? payload) => _obsMersisno.value = payload);
-  late final _obsMersisno = Observable(_data.mersisNo);
-  late final _computedMersisno = Computed(() => _obsMersisno.value);
-
-//-----------       End Private mersisNo         -----------
-
-//-----------       Begin Public mersisNo        -----------
-
-  set mersisNo(String? payload) {
-    _setMersisno.call([payload]);
-  }
-
-  String? get mersisNo => _computedMersisno.value;
-
-//-----------       End Public mersisNo          -----------
-
-//-----------       Begin Private obsTest       -----------
-
-  late final _setObstest = Action((List<String> payload) =>
-      {_obsObstest.clear(), _obsObstest.addAll(payload)});
-  late final _obsObstest = ObservableList.of(_data.obsTest);
-  late final _computedObstest = Computed(() => _obsObstest);
-
-//-----------       End Private obsTest         -----------
-
-//-----------       Begin Public obsTest        -----------
-
-  set obsTest(List<String> payload) {
-    _setObstest.call([payload]);
-  }
-
-  List<String> get obsTest => _computedObstest.value;
-
-//-----------       End Public obsTest          -----------
-
-//-----------       Begin Private type       -----------
-
-  late final _setType = Action((String? payload) => _obsType.value = payload);
-  late final _obsType = Observable(_data.type);
-  late final _computedType = Computed(() => _obsType.value);
-
-//-----------       End Private type         -----------
-
-//-----------       Begin Public type        -----------
-
-  set type(String? payload) {
-    _setType.call([payload]);
-  }
-
-  String? get type => _computedType.value;
-
-//-----------       End Public type          -----------
-
-//-----------       Begin Restore Function    -----------
-
-  @override
-  void restore() {
-    iban = _data.iban;
-    taxAuthority = _data.taxAuthority;
-    taxNo = _data.taxNo;
-    mersisNo = _data.mersisNo;
-    obsTest = _data.obsTest;
-    type = _data.type;
-    super.restore();
-  }
-//-----------       End Restore Function      -----------
-
-//-----------      Begin GetCurrentData Function    -----------
-
-  @override
-  AddressModelForBillingLimitedCampany getCurrentData() {
-    return AddressModelForBillingLimitedCampany(
-      city: city,
-      town: town,
-      title: title,
-      firstName: firstName,
-      lastName: lastName,
-      gsm: gsm,
-      tcNo: tcNo,
-      id: id,
-      iban: iban,
-      taxAuthority: taxAuthority,
-      taxNo: taxNo,
-      mersisNo: mersisNo,
-      address: address,
-      obsTest: obsTest.toList(),
-      type: type,
-    );
-  }
-//-----------      End GetCurrentData Function       -----------
-
-//-----------       Begin Save Function       -----------
-
-  @override
-  AddressModelForBillingLimitedCampany save() {
-    _data = getCurrentData();
-    return _data;
-  }
-//-----------       Begin Save Function       -----------
-
-//-----------      Begin Transform Function    -----------
-
-  @override
-  T transform<T>(
-      _TransformerDataCallback<AddressModelForBillingLimitedCampany, T> fn,
       {bool liveData = true}) {
     return fn(liveData ? getCurrentData() : _data);
   }

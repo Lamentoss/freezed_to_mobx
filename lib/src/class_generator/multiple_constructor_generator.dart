@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:code_builder/src/specs/code.dart';
+import "package:collection/collection.dart";
 import 'package:freezed_to_mobx/src/class_generator/abstract/class_generator_abstract.dart';
 import 'package:freezed_to_mobx/src/class_generator/utils/extension_block_generator.dart';
 import 'package:freezed_to_mobx/src/class_generator/utils/get_current_data_block_generator.dart';
@@ -11,8 +12,6 @@ import 'package:freezed_to_mobx_annotations/index.dart';
 
 import '../models/constructor.dart';
 import '../models/mobx_param.dart';
-
-import "package:collection/collection.dart";
 
 class MultipleConstructorGenerator extends IMobxClassGenerator {
   MultipleConstructorGenerator(ClassElement constructor) : super(constructor);
@@ -60,6 +59,7 @@ class MultipleConstructorGenerator extends IMobxClassGenerator {
 
   Code _genBaseObj() {
     final baseObjClass = <Code>[];
+
     ImportsBlockGenerator.generate(constructor, baseObjClass);
 
     baseObjClass.add(Code('''
