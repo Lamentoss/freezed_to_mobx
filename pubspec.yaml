@@ -10,7 +10,7 @@ dependencies:
   # path: ^1.8.0
   analyzer: ">=0.41.2 <2.1.0"
   build: ^2.1.0
-  source_gen: ^1.2.0
+  source_gen: ^1.1.0
   code_builder: ^4.1.0
   path: any
   dart_style: ^2.0.0
