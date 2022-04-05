@@ -12,7 +12,7 @@ dependencies:
   build: ^2.1.0
   source_gen: ^1.2.1
   code_builder: ^4.1.0
-  path: ^1.8.1
+  path: any
   dart_style: ^2.0.0
   freezed_to_mobx_annotations:
     git: https://github.com/Lamentoss/freezed_to_mobx_annotations.git
