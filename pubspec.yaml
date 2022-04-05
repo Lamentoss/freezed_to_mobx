@@ -15,7 +15,7 @@ dependencies:
   path: ^1.8.1
   dart_style: ^2.0.0
   freezed_to_mobx_annotations:
-    path: ../freezed_to_mobx_annotations
+    git: https://github.com/Lamentoss/freezed_to_mobx_annotations.git
 
 dev_dependencies:
   lints: ^1.0.0
